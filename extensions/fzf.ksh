@@ -9,7 +9,7 @@ zpatch() {
 }
 
 zh() {
-	fc -ln 0 10000 | uniq | eval `fzf`
+    fc -ln 0 10000 | uniq | eval $(fzf)
 }
 
 zpkg() {
