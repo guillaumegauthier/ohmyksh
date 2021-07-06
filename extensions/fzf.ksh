@@ -41,7 +41,7 @@ zpkg() {
 				;;
 			rm)
 				_pkg=$(ls -1 /var/db/pkg | fzf --preview "/usr/sbin/pkg_info {1}")
-				[ ! -z $_pkg ] && ${OHMY_DO} /usr/sbin/pkg_delete $_pkg
+				[ ! -z $_pkg ] && ${OHMY_DO} /usr/sbin/pkg_delete $_pkg && ${OHMY_DO} /usr/sbin/pkg_delete -a
 				;;
 			*)
 				echo $_usage
