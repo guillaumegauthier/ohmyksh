@@ -36,12 +36,12 @@ zpkg() {
 				_pkg=$(/usr/local/bin/sqlite3 -separator " " \
 					/usr/local/share/sqlports \
 					"select distinct fullpkgname from Ports;" |\
-				       	fzf --preview "/usr/sbin/pkg_info {1}")
-				[ ! -z $_pkg ] && ${OHMY_DO} /usr/sbin/pkg_add $_pkg
+				       	fzf -m --preview "/usr/sbin/pkg_info {1}")
+				[ ! -z "$_pkg" ] && ${OHMY_DO} /usr/sbin/pkg_add $_pkg
 				;;
 			rm)
-				_pkg=$(ls -1 /var/db/pkg | fzf --preview "/usr/sbin/pkg_info {1}")
-				[ ! -z $_pkg ] && ${OHMY_DO} /usr/sbin/pkg_delete $_pkg && ${OHMY_DO} /usr/sbin/pkg_delete -a
+				_pkg=$(pkg_info -m | awk '{print $1}' | fzf -m --preview "/usr/sbin/pkg_info {1}")
+				[ ! -z "$_pkg" ] && ${OHMY_DO} /usr/sbin/pkg_delete $_pkg && ${OHMY_DO} /usr/sbin/pkg_delete -a
 				;;
 			*)
 				echo $_usage
