@@ -15,7 +15,7 @@ zh() {
 zpkg() {
 	local _pkg _usage
 
-	_usage="zpkg add|rm"
+	_usage="zpkg add|rm|auto"
 
 	if [ ! -f /usr/local/share/sqlports ]; then
 		echo "please install sqlports"
@@ -42,6 +42,10 @@ zpkg() {
 			rm)
 				_pkg=$(pkg_info -m | awk '{print $1}' | fzf -m --preview "/usr/sbin/pkg_info {1}")
 				[ ! -z "$_pkg" ] && ${OHMY_DO} /usr/sbin/pkg_delete $_pkg && ${OHMY_DO} /usr/sbin/pkg_delete -a
+				;;
+      auto)
+				_pkg=$(pkg_info -m | awk '{print $1}' | fzf -m --preview "/usr/sbin/pkg_info {1}")
+				[ ! -z "$_pkg" ] && ${OHMY_DO} /usr/sbin/pkg_add -aa $_pkg && ${OHMY_DO} /usr/sbin/pkg_delete -a
 				;;
 			*)
 				echo $_usage
