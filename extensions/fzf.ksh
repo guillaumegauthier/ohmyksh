@@ -52,3 +52,10 @@ zpkg() {
 		esac
 	fi
 }
+
+function fzf-histo {
+    RES=$(fzf --tac --no-sort -e < $HISTFILE)
+    test -n "$RES" || exit 0
+    eval "$RES"
+}
+bind -m ^R=fzf-histo^J
