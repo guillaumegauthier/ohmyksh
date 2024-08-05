@@ -54,7 +54,7 @@ zpkg() {
 }
 
 function fzf-histo {
-    RES=$(fzf --tac --no-sort -e < $HISTFILE)
+    RES=$(awk '!seen[$0]++' $HISTFILE | fzf --tac --no-sort -e)
     test -n "$RES" || exit 0
     eval "$RES"
 }
